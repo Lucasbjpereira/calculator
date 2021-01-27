@@ -9,7 +9,7 @@ function Calculator() {
         </section>
         <section className="painel">
             <div className="column">
-                <Button class="button blue" value=""/>
+                <Button class="button blue" value="C"/>
                 <Button class="button blue" value={<FontAwesomeIcon icon={faDivide}/>}/>
                 <Button class="button blue" value="X"/>
                 <Button class="button blue" value={<FontAwesomeIcon icon={faBackspace}/>}/>
