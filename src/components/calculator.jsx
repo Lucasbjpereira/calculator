@@ -3,46 +3,98 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBackspace, faDivide } from '@fortawesome/free-solid-svg-icons'
 import Button from './Button/Button';
 
-function Calculator() {
-    return <>
-        <section className="display">
-        </section>
-        <section className="painel">
-            <div className="column">
-                <Button class="button blue" value="C"/>
-                <Button class="button blue" value={<FontAwesomeIcon icon={faDivide}/>}/>
-                <Button class="button blue" value="X"/>
-                <Button class="button blue" value={<FontAwesomeIcon icon={faBackspace}/>}/>
-            </div>
-            <div className="column">
-                <button className="button">7</button>
-                <button className="button">8</button>
-                <button className="button">9</button>
-                <button className="button blue">-</button>
-            </div>
-            <div className="column">
-                <button className="button">4</button>
-                <button className="button">5</button>
-                <button className="button">6</button>
-                <button className="button blue">+</button>
-            </div>
-            <div className="footerCalc">
-                <div className="footerButtons">
-                    <div className="column columnFooter">
-                        <button className="button buttonfooter">1</button>
-                        <button className="button buttonfooter">2</button>
-                        <button className="button buttonfooter">3</button>
-                    </div>
-                    <div className="column columnFooter">
-                        <button className="button buttonfooter">%</button>
-                        <button className="button buttonfooter">0</button>
-                        <button className="button buttonfooter">.</button>
-                    </div>
+class Calculator extends React.Component {
+
+    constructor() {
+        super();
+
+        this.operation = this.operation.bind(this);
+        this.clear = this.clear.bind(this);
+        this.operator = this.operator.bind(this);
+        this.operationContent = [];
+        this.number = "";
+    }
+
+    clear() {
+        document.querySelector('.containResult h2').innerHTML = '';
+        // document.querySelector('.containResult p').innerHTML = '';
+        document.querySelector('.operation p').innerHTML = '';
+        this.operationContent = [];
+    }
+
+    operation(e) {
+        this.number += parseInt(e.target.textContent);
+        document.querySelector('.operation p').textContent = this.number;
+    }
+
+    operator(e) {
+        if(this.number != "") {
+            this.operationContent.push(parseInt(this.number));
+        }
+        
+        if(!isNaN(this.operationContent[this.operationContent.length - 1])) {
+
+            if(this.operationContent.length == 3) {
+                this.operationContent = [eval(this.operationContent.join(' '))];
+                document.querySelector('.containResult h2').innerHTML = this.operationContent;
+                console.log(this.operationContent);
+            }
+
+            this.operationContent.push(e.target.textContent);
+            this.number = "";
+        }
+    }
+
+    render() {
+        return <>
+            <section className="display">
+                <div className="operation">
+                    <p></p>
                 </div>
-                <button className="button buttonBigger backgroundBlue">=</button>
-            </div>
-        </section>
-    </>
+                <div className="containResult">
+                    <p>=</p>
+                    <h2></h2>
+                </div>
+            </section>
+            <section className="painel">
+                <div className="column">
+                    <Button click={this.clear} class="button blue" value="C" />
+                    <Button click={this.operator} class="button blue" value="/" />
+                    <Button click={this.operator} class="button blue" value="*" />
+                    <Button class="button blue" value={<FontAwesomeIcon icon={faBackspace} />} />
+                </div>
+                <div className="column">
+                    <Button click={this.operation} class="button" value="7" />
+                    <Button click={this.operation} class="button" value="8" />
+                    <Button click={this.operation} class="button" value="9" />
+                    <Button click={this.operator} class="button blue" value="-" />
+                </div>
+                <div className="column">
+                    <Button click={this.operation} class="button" value="4" />
+                    <Button click={this.operation} class="button" value="5" />
+                    <Button click={this.operation} class="button" value="6" />
+                    <Button click={this.operator} class="button blue" value="+" />
+                </div>
+                <div className="footerCalc">
+                    <div className="footerButtons">
+                        <div className="column columnFooter">
+                            <Button click={this.operation} class="button buttonfooter" value="1" />
+                            <Button click={this.operation} class="button buttonfooter" value="2" />
+                            <Button click={this.operation} class="button buttonfooter" value="3" />
+                        </div>
+                        <div className="column columnFooter">
+                            <Button click={this.operator} class="button buttonfooter" value="%" />
+                            <Button click={this.operation} class="button buttonfooter" value="0" />
+                            <Button click={this.operation} class="button buttonfooter" value="." />
+                        </div>
+                    </div>
+                    <Button class="button buttonBigger backgroundBlue" value="=" />
+                </div>
+            </section>
+        </>
+    }
+
+    
 }
 
 export default Calculator;

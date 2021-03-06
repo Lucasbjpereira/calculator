@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   background-color: #1b1718;
+  font-family: 'Lato', sans-serif !important;
 }
 
 .display {
@@ -22,7 +25,7 @@ body {
   background-color: transparent;
   border: 0;
   color: white;
-  font-size: 18pt;
+  font-size: 28px;
 }
 
 .columnFooter, .footerButtons {
@@ -62,3 +65,44 @@ body {
 .column {
   display: flex;
 }
+
+section.display div {
+  height: 17.5vh;
+}
+
+.operation {
+  
+}
+
+.containResult {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.containResult h2 {
+  font-size: 55px;
+  color: white;
+  margin-right: 20px;
+}
+
+.containResult p {
+  font-size: 40px;
+  margin-left: 20px;
+  color: #7f7f7f;
+}
+
+.operation {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.operation p {
+  margin: 0;
+  font-size: 40px;
+  text-align: right;
+  padding: 20px;
+  color: #7f7f7f;
+}
+
