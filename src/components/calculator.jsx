@@ -44,6 +44,7 @@ class Calculator extends React.Component {
             this.number = "";
         }
     }
+    
 
     render() {
         return <>
