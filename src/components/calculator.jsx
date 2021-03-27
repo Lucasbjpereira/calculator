@@ -11,15 +11,16 @@ class Calculator extends React.Component {
         this.operation = this.operation.bind(this);
         this.clear = this.clear.bind(this);
         this.operator = this.operator.bind(this);
+        this.equal = this.equal.bind(this);
         this.operationContent = [];
         this.number = "";
     }
 
     clear() {
         document.querySelector('.containResult h2').innerHTML = '';
-        // document.querySelector('.containResult p').innerHTML = '';
         document.querySelector('.operation p').innerHTML = '';
         this.operationContent = [];
+        this.number = "";
     }
 
     operation(e) {
@@ -27,24 +28,31 @@ class Calculator extends React.Component {
         document.querySelector('.operation p').textContent = this.number;
     }
 
+    equal(e) {
+        this.operator(e);
+        console.log(this.operationContent);
+    }
+
     operator(e) {
-        if(this.number != "") {
+        if (this.number != "") {
             this.operationContent.push(parseInt(this.number));
         }
-        
-        if(!isNaN(this.operationContent[this.operationContent.length - 1])) {
 
-            if(this.operationContent.length == 3) {
+        if(this.operationContent[this.operationContent.length - 1] == "=") {
+            this.operationContent.pop();
+            console.log('teste', this.operationContent);
+        }
+
+        if (!isNaN(this.operationContent[this.operationContent.length - 1])) {
+            if (this.operationContent.length == 3) {
                 this.operationContent = [eval(this.operationContent.join(' '))];
                 document.querySelector('.containResult h2').innerHTML = this.operationContent;
-                console.log(this.operationContent);
             }
 
             this.operationContent.push(e.target.textContent);
             this.number = "";
         }
     }
-    
 
     render() {
         return <>
@@ -89,13 +97,12 @@ class Calculator extends React.Component {
                             <Button click={this.operation} class="button buttonfooter" value="." />
                         </div>
                     </div>
-                    <Button class="button buttonBigger backgroundBlue" value="=" />
+                    <Button click={this.equal} class="button buttonBigger backgroundBlue" value="=" />
                 </div>
             </section>
         </>
     }
 
-    
 }
 
 export default Calculator;
